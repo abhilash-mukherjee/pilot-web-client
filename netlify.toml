@@ -1,4 +1,4 @@
 [context.dev.environment]
-VITE_BASE_URL = "https://dev-server.penguinlabs.in"
+VITE_BASE_URL = "https://dev-server.penguinlabs.in/web-client"
 [context.production.environment]
-VITE_BASE_URL = "https://prod-server.penguinlabs.in"
+VITE_BASE_URL = "https://prod-server.penguinlabs.in/web-client"
