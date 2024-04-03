@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../helpers/strings';
+import { fetchUserDetails } from '../helpers/methods';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../state/atoms';
 
-export function LoginPage()
-{
-    const navigate = useNavigate();
+export function LoginPage() {
+  const navigate = useNavigate();
   // State for input fields
   const [formData, setFormData] = useState({
     email: '',
@@ -14,6 +16,8 @@ export function LoginPage()
   // State for submission status and error messages
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const setAuth = useSetRecoilState(authState);
 
   // Handle input change
   const handleChange = (e) => {
@@ -51,11 +55,15 @@ export function LoginPage()
 
       const data = await response.json();
       if (response.ok) {
-        // Login was successful
-        localStorage.setItem('token', data.token);
-        navigate("/dashboard");
+        localStorage.setItem("token", data.token);
+        const userDetails = await fetchUserDetails(data.token);
+        if (userDetails) {
+          setAuth({ isLoggedIn: true, token: data.token, userDetails }); // Update Recoil auth state
+          navigate('/dashboard');
+        } else {
+          setErrorMessage('Failed to load user details.');
+        }
       } else {
-        // Handle server-side validation errors (e.g., wrong credentials)
         setErrorMessage(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
@@ -69,14 +77,14 @@ export function LoginPage()
     <div>
       <h2>Login Page</h2>
       <form onSubmit={handleSubmit}>
-        <input 
+        <input
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
         />
-        <input 
+        <input
           type="password"
           name="password"
           placeholder="Password"

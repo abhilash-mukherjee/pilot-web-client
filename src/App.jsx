@@ -9,6 +9,7 @@ import { SignupPage } from './pages/SignupPage.jsx';
 import { DashboardPage } from './pages/DashboardPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { Header } from './components/Header.jsx';
+import { CreateSessionPage } from './pages/CreateSessionPage.jsx.jsx';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/create-session" element={<CreateSessionPage />} />
         {/* Redirect to login if the path is not found */}
         <Route path="*" element={< NotFoundPage />} />
       </Routes>

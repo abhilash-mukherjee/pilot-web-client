@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../helpers/strings';
+import { useSetRecoilState } from 'recoil';
+import { authState } from '../state/atoms';
+import { fetchUserDetails } from '../helpers/methods';
 
 export function SignupPage() {
   // State for input fields
@@ -16,6 +19,7 @@ export function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const setAuth = useSetRecoilState(authState)
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,10 +53,14 @@ export function SignupPage() {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        navigate("/dashboard");
-        console.log("navigated");
-        nav
+        localStorage.setItem("token", data.token);
+        const userDetails = await fetchUserDetails(data.token);
+        if (userDetails) {
+          setAuth({ isLoggedIn: true, token: data.token, userDetails }); // Update Recoil auth state
+          navigate('/dashboard');
+        } else {
+          setErrorMessage('Failed to load user details.');
+        }
       } else {
         setErrorMessage(data.message || 'Signup failed. Please try again.');
       }
@@ -66,28 +74,28 @@ export function SignupPage() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input 
+        <input
           type="text"
           name="name"
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
         />
-        <input 
+        <input
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
         />
-        <input 
+        <input
           type="password"
           name="password"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
         />
-        <input 
+        <input
           type="text"
           name="mobileNo"
           placeholder="Mobile Number"
