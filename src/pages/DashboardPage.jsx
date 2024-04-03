@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { authState, curretSessionDataState } from '../state/atoms'; // Ensure paths are correct
 import { CurrentSessionContainer } from "../components/CurrentSessionContainer";
 import {BASE_URL} from '../helpers/strings'; // Ensure this path matches your project structure
+import { SessionHolder } from '../components/SessionHolder';
 
 export function DashboardPage() {
   const auth = useRecoilValue(authState);
@@ -57,6 +58,7 @@ export function DashboardPage() {
         DashboardPage
         <button onClick={handleCreateSession}>Create New Session</button>
         <CurrentSessionContainer />
+        <SessionHolder />
       </div>
     </>
   );
