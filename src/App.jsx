@@ -9,7 +9,7 @@ import { SignupPage } from './pages/SignupPage.jsx';
 import { DashboardPage } from './pages/DashboardPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { Header } from './components/Header.jsx';
-import { CreateSessionPage } from './pages/CreateSessionPage.jsx.jsx';
+import { CreateSessionPage } from './pages/CreateSessionPage.jsx';
 
 
 function App() {
