@@ -1,0 +1,4 @@
+[context.dev.environment]
+VITE_BASE_URL = "https://dev-server.penguinlabs.in"
+[context.production.environment]
+VITE_BASE_URL = "https://prod-server.penguinlabs.in"
