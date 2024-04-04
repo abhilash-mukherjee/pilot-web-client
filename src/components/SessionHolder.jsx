@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { curretSessionDataState } from '../state/atoms'; // Adjust the import path as necessary
 import { SessionCard } from './SessionCard'; // Adjust the import path as necessary
 import {BASE_URL} from '../helpers/strings'; // Ensure this matches your project structure
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 export function SessionHolder() {
     const [sessions, setSessions] = useState([]);
@@ -36,8 +37,9 @@ export function SessionHolder() {
     }, [currentSession]); // Re-fetch sessions when currentSession changes
 
     return (
-        <div>
-            <h2>Previous Sessions</h2>
+        <Box w={'100%'} borderTop={'1px solid grey'} marginTop={'10px'} paddingTop={'1rem'}>
+            <Text fontSize={'x-large'} fontWeight={'bold'}>Previous Sessions</Text>
+            <Flex flexDirection={'column'} gap={'1rem'} marginTop={'1rem'}>
             {sessions.map((session) => (
                 <SessionCard 
                     key={session._id}
@@ -48,6 +50,7 @@ export function SessionHolder() {
                     ailment={session.ailment}
                 />
             ))}
-        </div>
+            </Flex>
+        </Box>
     );
 }

@@ -59,7 +59,7 @@ export function Header() {
                 {auth.isLoggedIn ? (
                     <Flex gap={'10px'} alignItems={'center'}>
                         <Text fontSize="lg" fontWeight="bold">
-                            Welcome, {auth.userDetails.name}!
+                            {auth.userDetails.name}
                         </Text>
                         <Button size={buttonSize} onClick={handleLogout} variant="outline" colorScheme="whiteAlpha">
                             Logout

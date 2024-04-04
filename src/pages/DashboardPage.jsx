@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authState, curretSessionDataState } from '../state/atoms'; // Ensure paths are correct
 import { CurrentSessionContainer } from "../components/CurrentSessionContainer";
-import {BASE_URL} from '../helpers/strings'; // Ensure this path matches your project structure
+import { BASE_URL } from '../helpers/strings'; // Ensure this path matches your project structure
 import { SessionHolder } from '../components/SessionHolder';
+import { Box, Button, Flex, Grid, GridItem, Text, useBreakpointValue } from '@chakra-ui/react';
 
 export function DashboardPage() {
   const auth = useRecoilValue(authState);
@@ -54,14 +55,23 @@ export function DashboardPage() {
     }
   };
 
+  const dashboardTextColumnSpan = useBreakpointValue({ base: 8, md: 8, lg: 7 });
+  const createButtonColumnSpan = useBreakpointValue({ base: 8, md: 8, lg: 1 });
+
   return (
     <>
-      <div>
-        DashboardPage
-        <button onClick={handleCreateSession}>Create New Session</button>
+      <Flex flexDirection={'column'} alignItems={'center'} width={'100%'}>
+        <Grid templateColumns='repeat(8, 1fr)' width={'100%'}>
+          <GridItem colSpan={dashboardTextColumnSpan} justifySelf={'center'} textAlign={'center'}>
+            <Text fontSize="xx-large" fontWeight="bold">Dashboard</Text>
+          </GridItem>
+          <GridItem colSpan={createButtonColumnSpan} justifySelf={'center'}>
+            <Button variant={'solid'} colorScheme='teal' onClick={handleCreateSession} m={'1rem'}>+ Create New Session</Button>
+          </GridItem>
+        </Grid>
         <CurrentSessionContainer />
         <SessionHolder />
-      </div>
+      </Flex>
     </>
   );
 }
