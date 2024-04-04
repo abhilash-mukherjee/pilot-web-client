@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { curretSessionDataState } from '../state/atoms'; // Adjust the import path as necessary
 import { BASE_URL } from '../helpers/strings'; // Ensure this matches your project structure
 import { halfHeadLengthCentimeters } from '../helpers/constants';
+import { Button } from '@chakra-ui/react';
 
 export function CreateSessionPage() {
   const navigate = useNavigate();
@@ -245,9 +246,9 @@ export function CreateSessionPage() {
           />
         </div>
 
-        <button type="submit" disabled={isLoading}>
+        <Button type="submit" isDisabled={isLoading} variant={'solid'} colorScheme='teal'>
           {isLoading ? 'Loading...' : 'Create Session'}
-        </button>
+        </Button>
       </form>
     </div>
   );
