@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { fetchUserDetails } from '../helpers/methods';
 import { authState } from '../state/atoms';
-
+import { Button, Flex, Text, useBreakpointValue, Box } from '@chakra-ui/react';
 
 export function Header() {
     const [auth, setAuth] = useRecoilState(authState);
     const navigate = useNavigate();
+    const buttonSize = useBreakpointValue({ base: 'sm', md: 'md' });
+    const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
+    const justifyContent = useBreakpointValue({ base: 'center', md: 'space-between' });
 
     useEffect(() => {
         const initializeAuthState = async () => {
@@ -33,7 +36,7 @@ export function Header() {
         if (!auth.isLoggedIn) {
             initializeAuthState();
         }
-    }, [auth.isLoggedIn, setAuth]); // Dependency array ensures effect runs once or when auth.isLoggedIn changes
+    }, [auth.isLoggedIn, setAuth]);
 
     const handleLogout = () => {
         setAuth({ isLoggedIn: false, token: null, userDetails: {} });
@@ -42,18 +45,37 @@ export function Header() {
     };
 
     return (
-        <div>
-            {auth.isLoggedIn ? (
-                <>
-                    <span>Welcome, {auth.userDetails.name}!</span>
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <button onClick={() => navigate('/login')}>Login</button>
-                    <button onClick={() => navigate('/signup')}>Signup</button>
-                </>
-            )}
-        </div>
+        <Flex
+            as="nav"
+            align="center"
+            justify="right"
+            wrap="wrap"
+            padding="0.5rem"
+            bg="teal.500"
+            color="white"
+            direction={flexDirection}
+        >
+            <Box >
+                {auth.isLoggedIn ? (
+                    <Flex gap={'10px'} alignItems={'center'}>
+                        <Text fontSize="lg" fontWeight="bold">
+                            Welcome, {auth.userDetails.name}!
+                        </Text>
+                        <Button size={buttonSize} onClick={handleLogout} variant="outline" colorScheme="whiteAlpha">
+                            Logout
+                        </Button>
+                    </Flex>
+                ) : (
+                    <Flex>
+                        <Button size={buttonSize} onClick={() => navigate('/login')} variant="solid" colorScheme="whiteAlpha">
+                            Login
+                        </Button>
+                        <Button size={buttonSize} onClick={() => navigate('/signup')} colorScheme="whiteAlpha" ml={4}>
+                            Signup
+                        </Button>
+                    </Flex>
+                )}
+            </Box>
+        </Flex>
     );
 }
