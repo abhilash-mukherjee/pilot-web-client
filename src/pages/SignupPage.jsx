@@ -4,6 +4,7 @@ import { BASE_URL } from '../helpers/strings';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../state/atoms';
 import { fetchUserDetails } from '../helpers/methods';
+import { Box, Button, FormControl, FormLabel, Input, Text, VStack, Heading } from '@chakra-ui/react';
 
 export function SignupPage() {
   // State for input fields
@@ -72,39 +73,71 @@ export function SignupPage() {
   };
 
   return (
-    <div>
+    <Box
+      w={{ base: "full", md: "50%" }}
+      p={8}
+      boxShadow="md"
+      rounded="lg"
+      m="auto" // Centrally align the Box in the viewport
+      mt={{ base: 4, md: '10vh' }} // Adds a top margin, more on larger screens
+    >
+      <Heading as="h3" size="lg" textAlign="center" mb={6}>
+        Signup
+      </Heading>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="mobileNo"
-          placeholder="Mobile Number"
-          value={formData.mobileNo}
-          onChange={handleChange}
-        />
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button type="submit" disabled={isSubmitting}>Signup</button>
+        <VStack spacing={4}>
+          <FormControl id="name" isRequired>
+            <FormLabel>Name</FormLabel>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl id="email" isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl id="password" isRequired>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl id="mobileNo" isRequired>
+            <FormLabel>Mobile Number</FormLabel>
+            <Input
+              type="text"
+              name="mobileNo"
+              placeholder="Enter your mobile number"
+              value={formData.mobileNo}
+              onChange={handleChange}
+            />
+          </FormControl>
+          {errorMessage && <Text color="red.500">{errorMessage}</Text>}
+          <Button
+            type="submit"
+            colorScheme="teal"
+            isLoading={isSubmitting}
+            loadingText="Signing up"
+            width="full"
+          >
+            Signup
+          </Button>
+        </VStack>
       </form>
-    </div>
+    </Box>
   );
 }

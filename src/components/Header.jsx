@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { fetchUserDetails } from '../helpers/methods';
 import { authState } from '../state/atoms';
-import { Button, Flex, Text, useBreakpointValue, Box } from '@chakra-ui/react';
+import { Button, Flex, Text, useBreakpointValue, Box, Grid, GridItem } from '@chakra-ui/react';
 
 export function Header() {
     const [auth, setAuth] = useRecoilState(authState);
     const navigate = useNavigate();
-    const buttonSize = useBreakpointValue({ base: 'sm', md: 'md' });
-    const flexDirection = useBreakpointValue({ base: 'column', md: 'row' });
-    const justifyContent = useBreakpointValue({ base: 'center', md: 'space-between' });
-
     useEffect(() => {
         const initializeAuthState = async () => {
             try {
@@ -45,37 +41,40 @@ export function Header() {
     };
 
     return (
-        <Flex
+        <Grid
             as="nav"
-            align="center"
-            justify="right"
             wrap="wrap"
-            padding="0.5rem"
+            paddingBlock="0.7rem"
+            paddingInline="1rem"
             bg="teal.500"
             color="white"
-            direction={flexDirection}
+            templateColumns='repeat(2, 1fr)'
+            position={'sticky'}
+            top="0"
+            zIndex="sticky"
         >
-            <Box >
+            <GridItem colSpan={1} alignSelf={'center'}><Text justifySelf={'flex-start'} fontWeight="bold" fontSize={"larger"}>Penguin Labs</Text></GridItem>
+            <GridItem colSpan={1} justifySelf={'flex-end'}>
                 {auth.isLoggedIn ? (
-                    <Flex gap={'10px'} alignItems={'center'}>
-                        <Text fontSize="lg" fontWeight="bold">
+                    <Flex gap={'10px'} justifySelf={'flex-end'}>
+                        <Text fontWeight="bold" alignSelf={'center'}>
                             {auth.userDetails.name}
                         </Text>
-                        <Button size={buttonSize} onClick={handleLogout} variant="outline" colorScheme="whiteAlpha">
+                        <Button onClick={handleLogout} variant="outline" colorScheme="whiteAlpha">
                             Logout
                         </Button>
                     </Flex>
                 ) : (
-                    <Flex>
-                        <Button size={buttonSize} onClick={() => navigate('/login')} variant="solid" colorScheme="whiteAlpha">
+                    <Flex justifySelf={'flex-end'}>
+                        <Button onClick={() => navigate('/login')} variant="solid" colorScheme="whiteAlpha">
                             Login
                         </Button>
-                        <Button size={buttonSize} onClick={() => navigate('/signup')} colorScheme="whiteAlpha" ml={4}>
+                        <Button onClick={() => navigate('/signup')} colorScheme="whiteAlpha" ml={4}>
                             Signup
                         </Button>
                     </Flex>
                 )}
-            </Box>
-        </Flex>
+            </GridItem>
+        </Grid>
     );
 }

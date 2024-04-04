@@ -88,10 +88,10 @@ export function PausePlayEndButtonContainer({ sessionData, setSessionData}) {
     return (
         <>
             <Flex width={'100%'} justifyContent={justifyContent} gap={'10px'}>
-            <Button variant={'solid'} colorScheme='teal' onClick={handlePauseResume} disabled={isLoading || sessionData.status === 'NOT_STARTED'}>
+            <Button variant={'solid'} colorScheme='teal' onClick={handlePauseResume} isDisabled={isLoading || sessionData.status === 'NOT_STARTED'}>
                 {isLoading ? 'Loading...' : buttonText}
             </Button>
-            <Button variant={'outline'} onClick={handleEndSession} disabled={isLoading}>
+            <Button variant={'outline'} onClick={handleEndSession} isDisabled={isLoading}>
                 {isLoading ? 'Loading...' : 'End Session'}
             </Button>
             </Flex>

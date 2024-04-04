@@ -4,6 +4,7 @@ import { BASE_URL } from '../helpers/strings';
 import { fetchUserDetails } from '../helpers/methods';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../state/atoms';
+import { Box, Button, FormControl, FormLabel, Input, Text, VStack, useBreakpointValue, Heading } from '@chakra-ui/react';
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -74,26 +75,49 @@ export function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Login Page</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button type="submit" disabled={isSubmitting}>Login</button>
-      </form>
-    </div>
-  );
+        <Box
+            w={{ base: "full", md: "50%" }}
+            p={8}
+            boxShadow="md"
+            rounded="lg"
+        >
+            <Heading as="h2" size="lg" textAlign="center" mb={6}>
+                Login
+            </Heading>
+            <form onSubmit={handleSubmit}>
+                <VStack spacing={4}>
+                    <FormControl id="email" isRequired>
+                        <FormLabel>Email</FormLabel>
+                        <Input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                    <FormControl id="password" isRequired>
+                        <FormLabel>Password</FormLabel>
+                        <Input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                    {errorMessage && <Text color="red.500">{errorMessage}</Text>}
+                    <Button
+                        type="submit"
+                        colorScheme="teal"
+                        isLoading={isSubmitting}
+                        loadingText="Logging in"
+                        width="full"
+                    >
+                        Login
+                    </Button>
+                </VStack>
+            </form>
+        </Box>
+);
 }
