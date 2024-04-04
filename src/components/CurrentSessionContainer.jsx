@@ -27,7 +27,8 @@ export function CurrentSessionContainer() {
 
             // Only update state if the new data is different to minimize re-renders
             if (!isEqual(newData.sessionData, sessionData) || !newData.sessionData) {
-                console.log("updated");
+                if(!newData.sessionData) newData.sessionData = null;
+                console.log("updated", newData.sessionData);
                 setSessionData(newData.sessionData);
             }
 

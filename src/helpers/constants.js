@@ -1,0 +1,1 @@
+export const halfHeadLengthCentimeters = 8;

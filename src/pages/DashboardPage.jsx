@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authState, curretSessionDataState } from '../state/atoms'; // Ensure paths are correct
 import { CurrentSessionContainer } from "../components/CurrentSessionContainer";
 import {BASE_URL} from '../helpers/strings'; // Ensure this path matches your project structure
@@ -9,6 +9,7 @@ import { SessionHolder } from '../components/SessionHolder';
 export function DashboardPage() {
   const auth = useRecoilValue(authState);
   const sessionData = useRecoilValue(curretSessionDataState);
+  const setSessionData = useSetRecoilState(curretSessionDataState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export function DashboardPage() {
 
           const data = await response.json();
           if (!response.ok) {
+            setSessionData(null);
             throw new Error(data.message || 'Failed to end session');
           }
           alert(data.message); // Notify user of success

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { curretSessionDataState } from '../state/atoms'; // Adjust the import path as necessary
-import {BASE_URL} from '../helpers/strings'; // Ensure this matches your project structure
+import { BASE_URL } from '../helpers/strings'; // Ensure this matches your project structure
+import { halfHeadLengthCentimeters } from '../helpers/constants';
 
 export function CreateSessionPage() {
   const navigate = useNavigate();
@@ -10,9 +11,9 @@ export function CreateSessionPage() {
   const [formData, setFormData] = useState({
     module: "LATERAL_MOVEMENT",
     patientDetails: {
-      email: "",
+      email: "defalt@email.com",
       name: "",
-      ailment: ""
+      ailment: "Stroke"
     },
     sessionParams: {
       duration: 60,
@@ -20,8 +21,8 @@ export function CreateSessionPage() {
       speed: 3,
       isStanding: false,
       targetSide: "BOTH",
-      rightOffsetCentimeters: 15,
-      leftOffsetCentimeters: 15,
+      rightOffsetCentimeters: 5,
+      leftOffsetCentimeters: 5,
       cubeScaleDecimeters: 12,
       spawningDistanceMetres: 12,
       spawnHeightDecimetres: 12,
@@ -56,7 +57,7 @@ export function CreateSessionPage() {
     setIsLoading(true);
 
     const token = localStorage.getItem('token');
-
+    
     try {
       const response = await fetch(`${BASE_URL}/create-session`, {
         method: 'POST',
@@ -90,6 +91,7 @@ export function CreateSessionPage() {
       <form onSubmit={handleSubmit}>
         {/* Patient Details Inputs */}
         <div>
+          <div>Patient Name</div>
           <input
             name="name"
             value={formData.patientDetails.name}
@@ -98,6 +100,7 @@ export function CreateSessionPage() {
             placeholder="Patient Name"
             required
           />
+          <div>Patient Email</div>
           <input
             name="email"
             value={formData.patientDetails.email}
@@ -106,6 +109,8 @@ export function CreateSessionPage() {
             placeholder="Patient Email"
             required
           />
+          <div>Patient Ailment</div>
+
           <input
             name="ailment"
             value={formData.patientDetails.ailment}
@@ -117,6 +122,9 @@ export function CreateSessionPage() {
         </div>
 
         {/* Session Params Inputs */}
+        <h2>Session Parameters</h2>
+        <div>Session Duration (mins)</div>
+
         <div>
           <input
             type="number"
@@ -127,6 +135,8 @@ export function CreateSessionPage() {
             placeholder="Duration (in seconds)"
             required
           />
+          <div>Cube Gap (secs)</div>
+
           <input
             type="number"
             name="cubeGap"
@@ -136,6 +146,7 @@ export function CreateSessionPage() {
             placeholder="Cube Gap"
             required
           />
+          <div>Cube Speed (1-10)</div>
           <input
             type="number"
             name="speed"
@@ -145,6 +156,7 @@ export function CreateSessionPage() {
             placeholder="Speed"
             required
           />
+          <div>Player Posture</div>
           <select
             name="isStanding"
             value={formData.sessionParams.isStanding}
@@ -153,8 +165,10 @@ export function CreateSessionPage() {
             required
           >
             <option value={true}>Standing</option>
-            <option value={false}>Not Standing</option>
+            <option value={false}>Sitting</option>
           </select>
+          <div>Target Side</div>
+
           <select
             name="targetSide"
             value={formData.sessionParams.targetSide}
@@ -166,15 +180,18 @@ export function CreateSessionPage() {
             <option value="RIGHT">Right</option>
             <option value="BOTH">Both</option>
           </select>
+          <div>Right Offset (cms)</div>
           <input
             type="number"
             name="rightOffsetCentimeters"
             value={formData.sessionParams.rightOffsetCentimeters}
             onChange={handleChange}
             data-section="sessionParams"
-            placeholder="Right Offset (cm)"
+            placeholder="Right Offset (cms)"
             required
           />
+          <div>Left Offset (cm)</div>
+
           <input
             type="number"
             name="leftOffsetCentimeters"
@@ -184,6 +201,8 @@ export function CreateSessionPage() {
             placeholder="Left Offset (cm)"
             required
           />
+          <div>Cube Scale Decimeters</div>
+
           <input
             type="number"
             name="cubeScaleDecimeters"
@@ -193,6 +212,8 @@ export function CreateSessionPage() {
             placeholder="Cube Scale (dm)"
             required
           />
+          <div>Spawnning Distance (metres)</div>
+
           <input
             type="number"
             name="spawningDistanceMetres"
@@ -202,6 +223,7 @@ export function CreateSessionPage() {
             placeholder="Spawning Distance (m)"
             required
           />
+          <div>Spawnning Height (Deci Metres)</div>
           <input
             type="number"
             name="spawnHeightDecimetres"
@@ -211,6 +233,7 @@ export function CreateSessionPage() {
             placeholder="Spawn Height (dm)"
             required
           />
+          <div>Z Threshold (metres)</div>
           <input
             type="number"
             name="zThresholdInMetres"
