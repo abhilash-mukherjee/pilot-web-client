@@ -1,1 +1,1 @@
-export const halfHeadLengthCentimeters = 8;
+export const halfHeadWidthCentimeters = 25;                                        
