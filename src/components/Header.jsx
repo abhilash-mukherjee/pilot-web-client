@@ -53,7 +53,7 @@ export function Header() {
             top="0"
             zIndex="sticky"
         >
-            <GridItem colSpan={1} alignSelf={'center'}><Text justifySelf={'flex-start'} fontWeight="bold" fontSize={"larger"}>Penguin Labs</Text></GridItem>
+            <GridItem colSpan={1} alignSelf={'center'} onClick={()=>{navigate('/')}} cursor={'pointer'}><Text justifySelf={'flex-start'} fontWeight="bold" fontSize={"larger"}>Penguin Labs</Text></GridItem>
             <GridItem colSpan={1} justifySelf={'flex-end'}>
                 {auth.isLoggedIn ? (
                     <Flex gap={'10px'} justifySelf={'flex-end'}>
