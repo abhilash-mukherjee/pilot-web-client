@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { fetchUserDetails } from '../helpers/methods';
 import { authState } from '../state/atoms';
-
+import { Button, Flex, Text, useBreakpointValue, Box, Grid, GridItem } from '@chakra-ui/react';
 
 export function Header() {
     const [auth, setAuth] = useRecoilState(authState);
     const navigate = useNavigate();
-
     useEffect(() => {
         const initializeAuthState = async () => {
             try {
@@ -33,7 +32,7 @@ export function Header() {
         if (!auth.isLoggedIn) {
             initializeAuthState();
         }
-    }, [auth.isLoggedIn, setAuth]); // Dependency array ensures effect runs once or when auth.isLoggedIn changes
+    }, [auth.isLoggedIn, setAuth]);
 
     const handleLogout = () => {
         setAuth({ isLoggedIn: false, token: null, userDetails: {} });
@@ -42,18 +41,40 @@ export function Header() {
     };
 
     return (
-        <div>
-            {auth.isLoggedIn ? (
-                <>
-                    <span>Welcome, {auth.userDetails.name}!</span>
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <button onClick={() => navigate('/login')}>Login</button>
-                    <button onClick={() => navigate('/signup')}>Signup</button>
-                </>
-            )}
-        </div>
+        <Grid
+            as="nav"
+            wrap="wrap"
+            paddingBlock="0.7rem"
+            paddingInline="1rem"
+            bg="teal.500"
+            color="white"
+            templateColumns='repeat(2, 1fr)'
+            position={'sticky'}
+            top="0"
+            zIndex="sticky"
+        >
+            <GridItem colSpan={1} alignSelf={'center'} onClick={()=>{navigate('/')}} cursor={'pointer'}><Text justifySelf={'flex-start'} fontWeight="bold" fontSize={"larger"}>Penguin Labs</Text></GridItem>
+            <GridItem colSpan={1} justifySelf={'flex-end'}>
+                {auth.isLoggedIn ? (
+                    <Flex gap={'10px'} justifySelf={'flex-end'}>
+                        <Text fontWeight="bold" alignSelf={'center'}>
+                            {auth.userDetails.name}
+                        </Text>
+                        <Button onClick={handleLogout} variant="outline" colorScheme="whiteAlpha">
+                            Logout
+                        </Button>
+                    </Flex>
+                ) : (
+                    <Flex justifySelf={'flex-end'}>
+                        <Button onClick={() => navigate('/login')} variant="solid" colorScheme="whiteAlpha">
+                            Login
+                        </Button>
+                        <Button onClick={() => navigate('/signup')} colorScheme="whiteAlpha" ml={4}>
+                            Signup
+                        </Button>
+                    </Flex>
+                )}
+            </GridItem>
+        </Grid>
     );
 }

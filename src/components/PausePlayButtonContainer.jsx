@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {BASE_URL} from '../helpers/strings';
+import { Button, Flex, useBreakpoint, useBreakpointValue } from '@chakra-ui/react';
 
 export function PausePlayEndButtonContainer({ sessionData, setSessionData}) {
     const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +65,6 @@ export function PausePlayEndButtonContainer({ sessionData, setSessionData}) {
                 throw new Error(data.message || 'An error occurred');
             }
 
-            alert(data.message); // Show success message
             setSessionData(null);
             // Optionally, perform additional actions after ending the session, such as redirecting
         } catch (error) {
@@ -83,14 +83,18 @@ export function PausePlayEndButtonContainer({ sessionData, setSessionData}) {
         }
     }, [sessionData.status]);
 
+    const justifyContent = useBreakpointValue({ base: 'center', md: 'center', lg: 'flex-end' });
+
     return (
         <>
-            <button onClick={handlePauseResume} disabled={isLoading || sessionData.status === 'NOT_STARTED'}>
+            <Flex width={'100%'} justifyContent={justifyContent} gap={'10px'}>
+            <Button variant={'solid'} colorScheme='teal' onClick={handlePauseResume} isDisabled={isLoading || sessionData.status === 'NOT_STARTED'}>
                 {isLoading ? 'Loading...' : buttonText}
-            </button>
-            <button onClick={handleEndSession} disabled={isLoading}>
+            </Button>
+            <Button variant={'outline'} onClick={handleEndSession} isDisabled={isLoading}>
                 {isLoading ? 'Loading...' : 'End Session'}
-            </button>
+            </Button>
+            </Flex>
         </>
     );
 }

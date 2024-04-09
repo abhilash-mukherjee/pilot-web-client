@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {BASE_URL} from '../helpers/strings'; // Ensure this matches your project setup
+import { BASE_URL } from '../helpers/strings'; // Ensure this matches your project setup
+import { Box, Button, Heading, Text, VStack, Divider, Flex } from '@chakra-ui/react';
 
 function SessionDetails() {
   const { sessionId } = useParams();
@@ -42,44 +43,50 @@ function SessionDetails() {
   const { sessionData, sessionParams, sessionMetrics } = sessionDetails;
 
   return (
-    <div>
-      <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
-      <h2>Session Details</h2>
-      <div>
-        <h3>Patient Info</h3>
-        <p>Name: {sessionData.patientName}</p>
-        <p>Email: {sessionData.patientEmail}</p>
-        <p>Ailment: {sessionData.ailment}</p>
-        <p>Date: {new Date(sessionData.date).toLocaleString()}</p>
-        <p>Status: {sessionData.status}</p>
-        <p>Module: {sessionData.module}</p>
-      </div>
-      <div>
-        <h3>Session Parameters</h3>
-        <p>Duration: {sessionParams.duration} seconds</p>
-        <p>Cube Gap: {sessionParams.cubeGap}</p>
-        <p>Speed: {sessionParams.speed}</p>
-        <p>Is Standing: {sessionParams.isStanding ? 'Yes' : 'No'}</p>
-        <p>Target Side: {sessionParams.targetSide}</p>
-        <p>Right Offset Centimeters: {sessionParams.rightOffsetCentimeters}</p>
-        <p>Left Offset Centimeters: {sessionParams.leftOffsetCentimeters}</p>
-        <p>Cube Scale Decimeters: {sessionParams.cubeScaleDecimeters}</p>
-        <p>Spawning Distance Metres: {sessionParams.spawningDistanceMetres}</p>
-        <p>Spawn Height Decimetres: {sessionParams.spawnHeightDecimetres}</p>
-        <p>Z Threshold In Metres: {sessionParams.zThresholdInMetres}</p>
-      </div>
-      <div>
-        <h3>Session Metrics</h3>
-        <p>Score: {sessionMetrics.score}</p>
-        <p>Left Cubes: {sessionMetrics.leftCubes}</p>
-        <p>Right Cubes: {sessionMetrics.rightCubes}</p>
-        <p>Left Dodges: {sessionMetrics.leftDodges}</p>
-        <p>Right Dodges: {sessionMetrics.rightDodges}</p>
-        <p>Left Hits: {sessionMetrics.leftHits}</p>
-        <p>Right Hits: {sessionMetrics.rightHits}</p>
-      </div>
-    </div>
+    <VStack spacing={4} align="stretch" p={5} width={'100%'}>
+      <Flex>
+      <Button onClick={() => navigate('/dashboard')} colorScheme="teal" variant={'solid'}>Back to Dashboard</Button>
+      </Flex>
+      <Heading as="h2" size="xl" textAlign="center">Session Details</Heading>
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Patient Info</Heading>
+        <Text>Name: {sessionData.patientName}</Text>
+        <Text>Email: {sessionData.patientEmail}</Text>
+        <Text>Ailment: {sessionData.ailment}</Text>
+        <Text>Date: {new Date(sessionData.date).toLocaleString()}</Text>
+        <Text>Status: {sessionData.status}</Text>
+        <Text>Module: {sessionData.module}</Text>
+      </Box>
+      <Divider />
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Session Parameters</Heading>
+        <Text>Duration: {sessionParams.duration} seconds</Text>
+        <Text>Cube Gap: {sessionParams.cubeGap}</Text>
+        <Text>Speed: {sessionParams.speed}</Text>
+        <Text>Is Standing: {sessionParams.isStanding ? 'Yes' : 'No'}</Text>
+        <Text>Target Side: {sessionParams.targetSide}</Text>
+        <Text>Right Offset Centimeters: {sessionParams.rightOffsetCentimeters}</Text>
+        <Text>Left Offset Centimeters: {sessionParams.leftOffsetCentimeters}</Text>
+        <Text>Cube Scale Decimeters: {sessionParams.cubeScaleDecimeters}</Text>
+        <Text>Spawning Distance Metres: {sessionParams.spawningDistanceMetres}</Text>
+        <Text>Spawn Height Decimetres: {sessionParams.spawnHeightDecimetres}</Text>
+        <Text>Z Threshold In Metres: {sessionParams.zThresholdInMetres}</Text>
+      </Box>
+      <Divider />
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Session Metrics</Heading>
+        <Text>Score: {sessionMetrics.score}</Text>
+        <Text>Left Cubes: {sessionMetrics.leftCubes}</Text>
+        <Text>Right Cubes: {sessionMetrics.rightCubes}</Text>
+        <Text>Left Dodges: {sessionMetrics.leftDodges}</Text>
+        <Text>Right Dodges: {sessionMetrics.rightDodges}</Text>
+        <Text>Left Hits: {sessionMetrics.leftHits}</Text>
+        <Text>Right Hits: {sessionMetrics.rightHits}</Text>
+      </Box>
+    </VStack>
   );
+
+
 }
 
 export default SessionDetails;
