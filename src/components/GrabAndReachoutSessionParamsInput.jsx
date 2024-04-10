@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { grabAndReachoutPresets } from '../helpers/sessionParamsPresets';
 import { AdvancedGrabAndReachoutInputs } from './AdvancedGrabAndReachoutInputs';
+import { extractHandDirection } from '../helpers/methods';
 
 export function GrabAndReachoutSessionParamsInput({ onChange }) {
   const [advancedMode, setAdvancedMode] = useState(false);
@@ -39,10 +40,11 @@ export function GrabAndReachoutSessionParamsInput({ onChange }) {
       setSessionParams((prev) => ({
         ...prev,
         boxes: moduleData.boxes,
-        spheres: moduleData.spheres
+        spheres: moduleData.spheres,
+        targetHand: extractHandDirection(value)
       }));
     }
-    console.log("session params inside handle change. ", sessionParams)
+    console.log("session params inside handle change.", sessionParams)
   };
 
   // Invoke onChange every time sessionParams changes
@@ -58,13 +60,6 @@ export function GrabAndReachoutSessionParamsInput({ onChange }) {
       </Checkbox>
       {!advancedMode ? (
         <VStack spacing={4}>
-          <FormControl>
-            <FormLabel>Target Hand</FormLabel>
-            <Select name="targetHand" value={sessionParams.targetHand} onChange={handleParamChange}>
-              <option value="LEFT">Left</option>
-              <option value="RIGHT">Right</option>
-            </Select>
-          </FormControl>
           <FormControl>
             <FormLabel>Reps</FormLabel>
             <Input type="number" name="reps" value={sessionParams.reps} min={1} onChange={handleParamChange} />

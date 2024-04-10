@@ -9,6 +9,7 @@ import {
     HStack,
     IconButton,
     useToast,
+    Select,
     Flex,
     Text
 } from '@chakra-ui/react';
@@ -65,47 +66,56 @@ export function AdvancedGrabAndReachoutInputs({ sessionParams, setSessionParams 
 
     return (
         <Box pt={10}>
-            
+            <FormControl mb={4}>
+                <FormLabel>Target Hand</FormLabel>
+                <Select
+                    value={sessionParams.targetHand}
+                    onChange={(e) => setSessionParams({ ...sessionParams, targetHand: e.target.value })}
+                >
+                    <option value="LEFT">Left</option>
+                    <option value="RIGHT">Right</option>
+                </Select>
+            </FormControl>
             <Flex flexDirection={'column'} w={'100%'} gap={10}>
                 <Text fontSize={'1.2rem'} fontWeight={'500'}>Boxes</Text>
-            {sessionParams.boxes.map((box, index) => (
-                <VStack key={`box-${index}`} spacing={2} alignItems="stretch"  bgColor={'#f7fafc'} borderRadius={8} p={10}>
-                    <HStack>
+                {sessionParams.boxes.map((box, index) => (
+                    <VStack key={`box-${index}`} spacing={2} alignItems="stretch" bgColor={'#f7fafc'} borderRadius={8} p={10}>
+                        <HStack>
+                            <FormControl>
+                                <FormLabel>Box X Position</FormLabel>
+                                <Input type="number" value={box.boxX} onChange={(e) => handleBoxChange(index, 'boxX', parseFloat(e.target.value))} />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Box Z Position</FormLabel>
+                                <Input type="number" value={box.boxZ} onChange={(e) => handleBoxChange(index, 'boxZ', parseFloat(e.target.value))} />
+                            </FormControl>
+                            <IconButton
+                                aria-label="Remove box"
+                                icon={<DeleteIcon />}
+                                onClick={() => removeBox(index)}
+                            />
+                        </HStack>
                         <FormControl>
-                            <FormLabel>Box X Position</FormLabel>
-                            <Input type="number" value={box.boxX} onChange={(e) => handleBoxChange(index, 'boxX', parseFloat(e.target.value))} />
+                            <FormLabel>Label</FormLabel>
+                            <Input value={box.label} onChange={(e) => handleBoxChange(index, 'label', e.target.value)} />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Box Z Position</FormLabel>
-                            <Input type="number" value={box.boxZ} onChange={(e) => handleBoxChange(index, 'boxZ', parseFloat(e.target.value))} />
+                            <FormLabel>Color Light</FormLabel>
+                            <Input type="color" value={box.colorLight} onChange={(e) => handleBoxChange(index, 'colorLight', e.target.value)} />
                         </FormControl>
-                        <IconButton
-                            aria-label="Remove box"
-                            icon={<DeleteIcon />}
-                            onClick={() => removeBox(index)}
-                        />
-                    </HStack>
-                    <FormControl>
-                        <FormLabel>Label</FormLabel>
-                        <Input value={box.label} onChange={(e) => handleBoxChange(index, 'label', e.target.value)} />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Color Light</FormLabel>
-                        <Input type="color" value={box.colorLight} onChange={(e) => handleBoxChange(index, 'colorLight', e.target.value)} />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Color Dark</FormLabel>
-                        <Input type="color" value={box.colorDark} onChange={(e) => handleBoxChange(index, 'colorDark', e.target.value)} />
-                    </FormControl>
-                </VStack>
-            ))}
+                        <FormControl>
+                            <FormLabel>Color Dark</FormLabel>
+                            <Input type="color" value={box.colorDark} onChange={(e) => handleBoxChange(index, 'colorDark', e.target.value)} />
+                        </FormControl>
+                    </VStack>
+                ))}
             </Flex>
             <Button onClick={addBox} leftIcon={<AddIcon />} colorScheme="blue" my={2} mb={10}>
                 Add Box
             </Button>
-            
+
             <Flex flexDirection={'column'} w={'100%'} gap={10} mt={10}>
-            <Text fontSize={'1.2rem'} fontWeight={'500'}>Spheres</Text>
+                <Text fontSize={'1.2rem'} fontWeight={'500'}>Spheres</Text>
                 {sessionParams.spheres.map((sphere, index) => (
                     <VStack key={`sphere-${index}`} spacing={2} alignItems="stretch" bgColor={'#f7fafc'} borderRadius={8} p={10}>
                         <HStack>
