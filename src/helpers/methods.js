@@ -34,3 +34,12 @@ export const fetchUserDetails = async (token) => {
     }
   };
   
+  export function extractHandDirection(key) {
+    if (key.endsWith("RIGHT")) {
+        return "RIGHT";
+    } else if (key.endsWith("LEFT")) {
+        return "LEFT";
+    } else {
+        return "Unknown"; // or null, depending on how you want to handle keys that don't match
+    }
+}

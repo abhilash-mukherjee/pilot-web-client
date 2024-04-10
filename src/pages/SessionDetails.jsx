@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../helpers/strings'; // Ensure this matches your project setup
+import { BASE_URL, lateralMovementString } from '../helpers/strings'; // Ensure this matches your project setup
 import { Box, Button, Heading, Text, VStack, Divider, Flex } from '@chakra-ui/react';
 
 function SessionDetails() {
@@ -42,22 +42,9 @@ function SessionDetails() {
 
   const { sessionData, sessionParams, sessionMetrics } = sessionDetails;
 
-  return (
-    <VStack spacing={4} align="stretch" p={5} width={'100%'}>
-      <Flex>
-      <Button onClick={() => navigate('/dashboard')} colorScheme="teal" variant={'solid'}>Back to Dashboard</Button>
-      </Flex>
-      <Heading as="h2" size="xl" textAlign="center">Session Details</Heading>
-      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-        <Heading as="h3" size="lg">Patient Info</Heading>
-        <Text>Name: {sessionData.patientName}</Text>
-        <Text>Email: {sessionData.patientEmail}</Text>
-        <Text>Ailment: {sessionData.ailment}</Text>
-        <Text>Date: {new Date(sessionData.date).toLocaleString()}</Text>
-        <Text>Status: {sessionData.status}</Text>
-        <Text>Module: {sessionData.module}</Text>
-      </Box>
-      <Divider />
+  const renderLateralMovementDetails = () => (
+    <>
+      {/* Session Parameters for Lateral Movement */}
       <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
         <Heading as="h3" size="lg">Session Parameters</Heading>
         <Text>Duration: {sessionParams.duration} seconds</Text>
@@ -83,10 +70,50 @@ function SessionDetails() {
         <Text>Left Hits: {sessionMetrics.leftHits}</Text>
         <Text>Right Hits: {sessionMetrics.rightHits}</Text>
       </Box>
-    </VStack>
+    </>
   );
 
+  const renderGrabAndReachoutDetails = () => (
+    <>
+      {/* Session Parameters for Grab and Reachout */}
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Session Parameters</Heading>
+        <Text>Target Hand: {sessionParams.targetHand}</Text>
+        <Text>Reps: {sessionParams.reps}</Text>
+        {sessionParams.boxes.map((box, index) => (
+          <Text key={`box-${index}`}>Box {index + 1}: {box.label} at ({box.boxX}, {box.boxZ}), Colors: Light {box.colorLight}, Dark {box.colorDark}</Text>
+        ))}
+        {sessionParams.spheres.map((sphere, index) => (
+          <Text key={`sphere-${index}`}>Sphere {index + 1}: {sphere.label} at ({sphere.spawnCentreX}, {sphere.spawnCentreZ}), Zone Width: {sphere.zoneWidth}, Color: {sphere.color}</Text>
+        ))}
+      </Box>
+      <Divider />
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Session Metrics</Heading>
+        <Text>Score: {sessionMetrics.score}</Text>
+      </Box>
+    </>
+  );
 
+  return (
+    <VStack spacing={4} align="stretch" p={5} width={'100%'}>
+      <Flex justifyContent="flex-start">
+        <Button onClick={() => navigate('/dashboard')} colorScheme="teal" variant={'solid'}>Back to Dashboard</Button>
+      </Flex>
+      <Heading as="h2" size="xl" textAlign="center">Session Details</Heading>
+      <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Heading as="h3" size="lg">Patient Info</Heading>
+        <Text>Name: {sessionData.patientName}</Text>
+        <Text>Email: {sessionData.patientEmail}</Text>
+        <Text>Ailment: {sessionData.ailment}</Text>
+        <Text>Date: {new Date(sessionData.date).toLocaleString()}</Text>
+        <Text>Status: {sessionData.status}</Text>
+        <Text>Module: {sessionData.module}</Text>
+      </Box>
+      <Divider />
+      {sessionData.module === lateralMovementString ? renderLateralMovementDetails() : renderGrabAndReachoutDetails()}
+    </VStack>
+  );
 }
 
 export default SessionDetails;
