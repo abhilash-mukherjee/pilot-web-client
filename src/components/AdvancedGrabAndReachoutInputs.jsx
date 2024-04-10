@@ -66,6 +66,12 @@ export function AdvancedGrabAndReachoutInputs({ sessionParams, setSessionParams 
 
     return (
         <Box pt={10}>
+
+            <FormControl mb={4}>
+                <FormLabel>Reps</FormLabel>
+                <Input type="number" name="reps" value={sessionParams.reps} min={1} onChange={(e) => setSessionParams({ ...sessionParams, reps: e.target.value })} />
+            </FormControl>
+            
             <FormControl mb={4}>
                 <FormLabel>Target Hand</FormLabel>
                 <Select
@@ -76,6 +82,9 @@ export function AdvancedGrabAndReachoutInputs({ sessionParams, setSessionParams 
                     <option value="RIGHT">Right</option>
                 </Select>
             </FormControl>
+
+            
+
             <Flex flexDirection={'column'} w={'100%'} gap={10}>
                 <Text fontSize={'1.2rem'} fontWeight={'500'}>Boxes</Text>
                 {sessionParams.boxes.map((box, index) => (
