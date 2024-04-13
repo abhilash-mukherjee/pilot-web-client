@@ -1,0 +1,21 @@
+.hero-background {
+    background-image: url(); /* Adjust the path as necessary */
+    background-position: center center; /* Centers the image */
+    background-repeat: no-repeat; /* No repeating of the image */
+    background-attachment: fixed; /* Keeps the background image fixed during scrolling */
+  }
+  
+  /* Ensure the background covers appropriately for portrait screens */
+  @media (orientation: portrait) {
+    .hero-background {
+      background-size: auto 100vh; /* Stretch to fill the height */
+    }
+  }
+  
+  /* Adjustments for landscape orientation */
+  @media (orientation: landscape) {
+    .hero-background {
+      background-size: cover; /* Cover ensures the background covers the entire element */
+    }
+  }
+  
