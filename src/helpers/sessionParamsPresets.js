@@ -24,7 +24,7 @@ export const grabAndReachoutPresets = {
             { boxX: -0.398, boxZ: 0.4, label: "BLUE", colorLight: "#1E2699", colorDark: "#A39CFF" }
         ],
         spheres: [
-            { spawnCentreX: 0.29, spawnCentreZ: 0.155, zoneWidth: 0.1, color: "#1E2699", label: "BLUE" }
+            { spawnCentreX: 0.29, spawnCentreZ: 0.1, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
         ]
     },
     "Diagonal-In-to-Out-RIGHT": {
@@ -32,7 +32,7 @@ export const grabAndReachoutPresets = {
             { boxX: 0.398, boxZ: 0.4, label: "BLUE", colorLight: "#1E2699", colorDark: "#A39CFF" }
         ],
         spheres: [
-            { spawnCentreX: -0.29, spawnCentreZ: 0.155, zoneWidth: 0.1, color: "#1E2699", label: "BLUE" }
+            { spawnCentreX: -0.29, spawnCentreZ: 0.1, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
         ]
     },
     "Diagonal-Out-to-In-LEFT": {
@@ -56,7 +56,7 @@ export const grabAndReachoutPresets = {
             { boxX: 0.105, boxZ: 0.4, label: "BLUE", colorLight: "#1E2699", colorDark: "#A39CFF" }
         ],
         spheres: [
-            { spawnCentreX: 0.086, spawnCentreZ: 0.234, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
+            { spawnCentreX: 0.086, spawnCentreZ: 0.15, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
         ]
     },
     "Linear-In-to-Out-LEFT": {
@@ -64,7 +64,7 @@ export const grabAndReachoutPresets = {
             { boxX: -0.105, boxZ: 0.4, label: "BLUE", colorLight: "#1E2699", colorDark: "#A39CFF" }
         ],
         spheres: [
-            { spawnCentreX: -0.086, spawnCentreZ: 0.234, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
+            { spawnCentreX: -0.086, spawnCentreZ: 0.15, zoneWidth: 0.05, color: "#1E2699", label: "BLUE" }
         ]
     },
     "Linear-Out-to-In-RIGHT": {
