@@ -19,6 +19,7 @@ export function LateralMovementSessionParamsInput({ onChange }) {
     spawningDistanceMetres: 12,
     spawnHeightDecimetres: 12,
     zThresholdInMetres: 7,
+    environment:0,
   });
   const handleAmplitudeOffsetsUpdate = (updatedOffsets) => {
     console.log(updatedOffsets);
@@ -80,7 +81,6 @@ export function LateralMovementSessionParamsInput({ onChange }) {
           onChange={handleParamChange}
         />
       </FormControl>
-
       <FormControl>
         <FormLabel htmlFor="targetSide">Target Side</FormLabel>
         <Select
@@ -92,6 +92,21 @@ export function LateralMovementSessionParamsInput({ onChange }) {
           <option value="LEFT">Left</option>
           <option value="RIGHT">Right</option>
           <option value="BOTH">Both</option>
+        </Select>
+      </FormControl>
+      
+      <FormControl>
+        <FormLabel htmlFor="environment">Environment</FormLabel>
+        <Select
+          id="environment"
+          name="environment"
+          value={sessionParams.environment}
+          onChange={handleParamChange}
+        >
+          <option value={0}>Black Sky</option>
+          <option value={1}>Cludy Night</option>
+          <option value={2}>Pink Nebula</option>
+          <option value={3}>Green Nebula</option>
         </Select>
       </FormControl>
 
