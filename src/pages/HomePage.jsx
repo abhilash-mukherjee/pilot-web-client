@@ -33,8 +33,8 @@ export function HomePage() {
       flexDir={'column'}
     >
       <Hero />
-      <About />
-      <Footer />
+      {/* <About /> */}
+      {/* <Footer /> */}
     </Flex>
   );
 }

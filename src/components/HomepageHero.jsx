@@ -64,7 +64,7 @@ function HeroContent() {
           color="white"
           maxW={{ base: '90%', md: '70%' }} // to ensure the text doesn't stretch too wide on larger screens
         >
-          Pioneering Rehab with Immersive Tech
+          Innovating Physical Rehab with Immersive Tech
         </Text>
 
         <Text
@@ -74,7 +74,7 @@ function HeroContent() {
           color="white"
           maxW={{ base: '90%', md: '70%' }}
         >
-          Building biofeedback-based immersive rehabilitation programmes
+          We're building the best biofeedback-driven immersive rehabilitation programmes
         </Text>
 
         <Box pt={4}>
