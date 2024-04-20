@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import backgroundImage from '../assets/bgimage.png';
+import { useNavigate } from "react-router-dom";
 export function Hero() {
   return (
     <Flex
@@ -37,6 +38,7 @@ export function Hero() {
 }
 
 function HeroContent() {
+  const navigate = useNavigate();
   return (
     <Flex
       direction="column"
@@ -46,7 +48,7 @@ function HeroContent() {
       w="100%"
       p={{ base: 4, md: 8 }}
     >
-      <Box w='100%'>
+      <Flex w='100%' justifyContent={'space-between'}>
         <Text
           fontSize={{ base: 'xl', md: '2xl' }}
           letterSpacing="wider"
@@ -54,7 +56,15 @@ function HeroContent() {
         >
           penguin labs
         </Text>
-      </Box>
+        <Flex justifySelf={'flex-end'}>
+                        <Button onClick={() => navigate('/login')} variant="solid" colorScheme="whiteAlpha">
+                            Login
+                        </Button>
+                        <Button onClick={() => navigate('/signup')} colorScheme="whiteAlpha" ml={4}>
+                            Signup
+                        </Button>
+                    </Flex>
+      </Flex>
       <VStack flex={1} justifyContent={'center'}>
 
         <Text
